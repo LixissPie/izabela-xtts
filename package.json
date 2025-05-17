@@ -1,0 +1,83 @@
+{
+  "name": "izabela-custom-server",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc -b && vite build && electron-builder",
+    "preview": "vite preview",
+    "electron:build": "vue-tsc -b && vite build && electron-builder",
+    "electron:build:win": "vue-tsc -b && vite build && electron-builder --win",
+    "electron:build:mac": "vue-tsc -b && vite build && electron-builder --mac",
+    "electron:build:linux": "vue-tsc -b && vite build && electron-builder --linux"
+  },
+  "devDependencies": {
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0",
+    "vue": "^3.5.13",
+    "@gradio/client": "^1.14.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "@vue/tsconfig": "^0.7.0",
+    "electron": "^36.2.1",
+    "electron-builder": "^24.9.1",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-electron": "^0.29.0",
+    "vue-tsc": "^2.2.8"
+  },
+  "build": {
+    "appId": "com.lixiss.izabela-custom-server",
+    "productName": "Izabela Next - Custom Server",
+    "directories": {
+      "output": "dist_electron"
+    },
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "public",
+        "to": "public"
+      }
+    ],
+    "asar": true,
+    "asarUnpack": [
+      "node_modules/@gradio/client/**/*"
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "public/256x256.png",
+      "target": ["dmg", "zip"]
+    },
+    "win": {
+      "icon": "public/256x256.png",
+      "target": ["nsis", "portable"]
+    },
+    "linux": {
+      "icon": "public/256x256.png",
+      "target": ["AppImage", "deb", "rpm"],
+      "category": "Utility"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "runAfterFinish": true
+    },
+    "portable": {
+      "artifactName": "${productName}-portable-${version}.${ext}"
+    },
+    "appImage": {
+      "artifactName": "${productName}-${version}.${ext}"
+    }
+  }
+}
