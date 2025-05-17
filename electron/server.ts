@@ -7,7 +7,6 @@ import {schema} from '../src/forms/xtts/schema.ts'
 import orderBy from 'lodash/orderBy'
 import { store } from './store.ts'
 import { FORM_STORAGE_KEY } from '../src/forms/xtts/consts.ts'
-import { defaultsDeep } from 'lodash'
 
 const PORT = 6789;
 const SERVER = "http://localhost:8010";

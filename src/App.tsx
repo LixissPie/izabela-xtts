@@ -1,10 +1,14 @@
 import XTTSServerForm from '@/forms/xtts/form.tsx'
+import { Provider } from '@/components/ui/provider.tsx'
+import { Container } from '@chakra-ui/react'
 
 function App() {
   return (
-      <div className={'container py-12 mx-auto px-6'}>
-        <XTTSServerForm/>
-      </div>
+      <Provider>
+        <Container className={'!py-6'}>
+          <XTTSServerForm/>
+        </Container>
+      </Provider>
   )
 }
 
