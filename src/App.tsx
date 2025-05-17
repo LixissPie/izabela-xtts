@@ -1,10 +1,10 @@
-import logo from './logo.svg'
+import ServerForm from '@/components/Form.tsx'
 
 function App() {
   return (
-    <div className="text-center">
-      cool
-    </div>
+      <div className={'container py-12 mx-auto px-6'}>
+        <ServerForm/>
+      </div>
   )
 }
 

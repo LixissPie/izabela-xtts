@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@source "../node_modules/@rjsf/shadcn";
 
 body {
   @apply m-0;

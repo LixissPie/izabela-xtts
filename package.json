@@ -18,36 +18,40 @@
     "electron:build:linux": "vue-tsc -b && vite build && electron-builder --linux"
   },
   "devDependencies": {
-    "axios": "^1.6.7",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "morgan": "^1.10.0",
-    "@gradio/client": "^1.14.2",
-    "@types/cors": "^2.8.17",
-    "@types/express": "^4.17.21",
-    "@types/morgan": "^1.9.9",
-    "@vitejs/plugin-vue": "^5.2.3",
-    "electron": "^36.2.1",
-    "electron-builder": "^24.9.1",
-    "vite-plugin-electron": "^0.29.0",
-    "vue-tsc": "^2.2.8",
     "@biomejs/biome": "1.9.4",
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.2.0",
-    "@types/react": "^19.0.8",
-    "@types/react-dom": "^19.0.3",
-    "@vitejs/plugin-react": "^4.3.4",
-    "jsdom": "^26.0.0",
-    "typescript": "^5.7.2",
-    "vite": "^6.1.0",
-    "vitest": "^3.0.5",
-    "web-vitals": "^4.2.4",
+    "@gradio/client": "^1.14.2",
+    "@rjsf/core": "^6.0.0-beta.8",
+    "@rjsf/shadcn": "^6.0.0-beta.8",
+    "@rjsf/utils": "^6.0.0-beta.8",
+    "@rjsf/validator-ajv8": "^6.0.0-beta.8",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-router": "^1.114.3",
     "@tanstack/react-router-devtools": "^1.114.3",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/morgan": "^1.9.9",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "axios": "^1.6.7",
+    "cors": "^2.8.5",
+    "electron": "^36.2.1",
+    "electron-builder": "^24.9.1",
+    "express": "^4.18.2",
+    "jsdom": "^26.0.0",
+    "morgan": "^1.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.0.6"
+    "tailwindcss": "^4.0.6",
+    "typescript": "^5.7.2",
+    "vite": "^6.1.0",
+    "vite-plugin-electron": "^0.29.0",
+    "vitest": "^3.0.5",
+    "vue-tsc": "^2.2.8",
+    "web-vitals": "^4.2.4"
   },
   "build": {
     "appId": "com.lixiss.izabela-custom-server",
@@ -72,15 +76,25 @@
     "mac": {
       "category": "public.app-category.utilities",
       "icon": "public/256x256.png",
-      "target": ["dmg", "zip"]
+      "target": [
+        "dmg",
+        "zip"
+      ]
     },
     "win": {
       "icon": "public/256x256.png",
-      "target": ["nsis", "portable"]
+      "target": [
+        "nsis",
+        "portable"
+      ]
     },
     "linux": {
       "icon": "public/256x256.png",
-      "target": ["AppImage", "deb", "rpm"],
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
       "category": "Utility"
     },
     "nsis": {
