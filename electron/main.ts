@@ -75,7 +75,13 @@ function createTray() {
     const icon = nativeImage.createFromPath(iconPath)
     tray = new Tray(icon)
     tray.setToolTip('Izabela Next - Custom Server')
-
+    tray.on('click', () => {
+        if (mainWindow === null) {
+            createWindow()
+        } else {
+            mainWindow.show()
+        }
+    })
     const contextMenu = Menu.buildFromTemplate([
         {
             label: 'Open Window',
