@@ -67,7 +67,7 @@ export const schema: RJSFSchema = {
             "x-index": 7
         },
         rvcModelName: {
-            type: "array",
+            type: "string",
             title: "RVC Model name",
             default: [],
             "x-index": 8

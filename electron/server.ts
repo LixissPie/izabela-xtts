@@ -3,6 +3,11 @@ import cors from 'cors';
 import morgan from 'morgan';
 import fs from 'fs';
 import { client } from '@gradio/client'
+import {schema} from '../src/forms/xtts/schema.ts'
+import orderBy from 'lodash/orderBy'
+import { store } from './store.ts'
+import { FORM_STORAGE_KEY } from '../src/forms/xtts/consts.ts'
+import { defaultsDeep } from 'lodash'
 
 const PORT = 6789;
 const SERVER = "http://localhost:8010";
@@ -45,56 +50,22 @@ expressApp.post('/synthesize-speech', async (req, res) => {
                 },
             },
         } = req
+        const orderedDefaultSchema = orderBy(Object.entries(schema.properties), ([_, property]: any) => property['x-index'], 'asc') as [string, object]
+        const defaultPayload = orderedDefaultSchema.map(([_, property]: any) => property.default)
+        const formData = store.get(FORM_STORAGE_KEY, {}) as object
+        const storedPayload = orderBy(Object.entries(formData), ([key]) => schema.properties[key]['x-index'], 'asc').map(([_, value]) => value)
+        // console.log('schema', defaultPayload)
+        // console.log('stored', storedPayload)
+        const payload = [...defaultPayload]
+        storedPayload.forEach((value, index) => {
+            payload[index] = value;
+        })
+        payload[orderedDefaultSchema.findIndex(([key]: any) => key === 'inputText')] = text
+        payload[orderedDefaultSchema.findIndex(([key]: any) => key === 'referenceSpeakerName')] = id
 
+        // console.log('final', payload)
         const app = await client(SERVER);
-        const result = await app.predict("/generate_audio", [
-            8,
-            1,
-            "Midpoint",
-            64,
-            0.5,
-            true,
-            "",
-            "",
-            [],
-            0,
-            0.75,
-            0.33,
-            "rmvpe",
-            3,
-            0,
-            1,
-            "None",
-            null,
-            "",
-            "",
-            null,
-            "",
-            false,
-            false,
-            false,
-            false,
-            false,
-            "None",
-            "mp3",
-            text,
-            "English",
-            id,
-            "",
-            "output",
-            "XTTS",
-            0.75,
-            1,
-            5,
-            50,
-            0.85,
-            1,
-            true,
-            {
-                "label": "Done",
-                "confidences": null
-            }
-        ]);
+        const result = await app.predict("/generate_audio", payload);
         // const audioPath = "C:\\Users\\pc\\Downloads\\something_something.mp3";
         const audioPath = result.data[1].path;
 

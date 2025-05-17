@@ -1,9 +1,9 @@
 import { app, BrowserWindow, Tray, Menu, nativeImage, ipcMain } from 'electron'
 import path from 'path'
 import { startExpressServer } from './server'
-import Store from 'electron-store'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
+import { store } from './store.ts'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -21,7 +21,6 @@ app.isQuitting = false;
 // Keep a global reference of objects to prevent garbage collection
 let tray: Tray | null = null
 let mainWindow: BrowserWindow | null = null
-const store = new Store()
 
 function setAutoLaunch(enabled: boolean) {
     app.setLoginItemSettings({
