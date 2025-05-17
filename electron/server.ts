@@ -5,7 +5,7 @@ import fs from 'fs';
 import { client } from '@gradio/client'
 
 const PORT = 6789;
-const SERVER = "http://localhost:8082";
+const SERVER = "http://localhost:8010";
 const expressApp = express();
 
 expressApp.use(cors());

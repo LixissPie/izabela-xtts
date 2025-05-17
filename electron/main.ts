@@ -1,9 +1,19 @@
 import { app, BrowserWindow, Tray, Menu, nativeImage } from 'electron'
 import path from 'path'
 import { startExpressServer } from './server'
+import Store from 'electron-store'
 
 // Keep a global reference of objects to prevent garbage collection
 let tray: Tray | null = null
+const store = new Store()
+
+function setAutoLaunch(enabled: boolean) {
+    app.setLoginItemSettings({
+        openAtLogin: enabled,
+        path: app.getPath('exe')
+    })
+    store.set('autoLaunch', enabled)
+}
 
 function createTray() {
     const iconPath = process.env.VITE_DEV_SERVER_URL
@@ -15,6 +25,14 @@ function createTray() {
     tray.setToolTip('Izabela Next - Custom Server')
 
     const contextMenu = Menu.buildFromTemplate([
+        {
+            label: 'Auto Launch',
+            type: 'checkbox',
+            checked: store.get('autoLaunch', true) as boolean,
+            click: (menuItem) => {
+                setAutoLaunch(menuItem.checked)
+            }
+        },
         { 
             label: 'Restart',
             click: () => {
@@ -37,4 +55,7 @@ function createTray() {
 app.whenReady().then(() => {
     createTray()
     startExpressServer()
+    
+    const shouldAutoLaunch = store.get('autoLaunch', true) as boolean
+    setAutoLaunch(shouldAutoLaunch)
 })

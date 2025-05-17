@@ -110,5 +110,8 @@
     "appImage": {
       "artifactName": "${productName}-${version}.${ext}"
     }
+  },
+  "dependencies": {
+    "electron-store": "^10.0.1"
   }
 }
