@@ -13,6 +13,13 @@ export default defineConfig({
     electron({
       main: {
         entry: 'electron/main.ts',
+        vite: {
+          build: {
+            commonjsOptions: {
+              transformMixedEsModules: true
+            }
+          }
+        }
       },
       preload: {
         input: 'electron/preload.ts',
