@@ -10,7 +10,7 @@ export const schema: RJSFSchema = {
             description: "More seconds means more VRAM usage and faster inference speed",
             minimum: 2,
             maximum: 40,
-            default: 2,
+            default: 8,
             "x-index": 0
         },
         overlapSeconds: {
@@ -18,7 +18,7 @@ export const schema: RJSFSchema = {
             title: "Overlap seconds",
             minimum: 0.1,
             maximum: 2,
-            default: 0.1,
+            default: 1,
             "x-index": 1
         },
         cfmSolver: {
@@ -35,7 +35,7 @@ export const schema: RJSFSchema = {
             description: "Higher values in general yield better quality but may be slower",
             minimum: 1,
             maximum: 128,
-            default: 1,
+            default: 64,
             "x-index": 3
         },
         cfmPriorTemperature: {
@@ -44,7 +44,7 @@ export const schema: RJSFSchema = {
             description: "Higher values can improve quality but can reduce stability",
             minimum: 0,
             maximum: 1,
-            default: 0,
+            default: 0.5,
             "x-index": 4
         },
         denoiseBeforeEnhancement: {
@@ -57,18 +57,19 @@ export const schema: RJSFSchema = {
         rvcModel: {
             type: "string",
             title: "RVC Model",
-            default: "Hello!!",
+            default: "",
             "x-index": 6
         },
         indexFile: {
             type: "string",
             title: "Index file",
-            default: "Hello!!",
+            default: "",
             "x-index": 7
         },
         rvcModelName: {
-            type: "string",
+            type: "array",
             title: "RVC Model name",
+            default: [],
             "x-index": 8
         },
         pitch: {
@@ -76,7 +77,7 @@ export const schema: RJSFSchema = {
             title: "Pitch",
             minimum: -24,
             maximum: 24,
-            default: -24,
+            default: 0,
             "x-index": 9
         },
         indexRate: {
@@ -84,7 +85,7 @@ export const schema: RJSFSchema = {
             title: "Index rate",
             minimum: 0,
             maximum: 1,
-            default: 0,
+            default: 0.75,
             "x-index": 10
         },
         protectVoiceless: {
@@ -92,14 +93,14 @@ export const schema: RJSFSchema = {
             title: "Protect voiceless",
             minimum: 0,
             maximum: 0.5,
-            default: 0,
+            default: 0.33,
             "x-index": 11
         },
         rvcMethod: {
             type: "string",
             title: "RVC Method",
-            enum: ["crepe"],
-            default: "crepe",
+            enum: ["crepe", "rmvpe"],
+            default: "rmvpe",
             "x-index": 12
         },
         medianFilterRadius: {
@@ -108,7 +109,7 @@ export const schema: RJSFSchema = {
             description: "If >=3: apply median filtering to the harvested pitch results. Can reduce breathiness",
             minimum: 0,
             maximum: 7,
-            default: 0,
+            default: 3,
             "x-index": 13
         },
         resampleRate: {
@@ -126,7 +127,7 @@ export const schema: RJSFSchema = {
             description: "Mix ratio between input and output volume envelope",
             minimum: 0,
             maximum: 1,
-            default: 0,
+            default: 1,
             "x-index": 15
         },
         referenceSample: {
@@ -140,69 +141,71 @@ export const schema: RJSFSchema = {
             type: "string",
             format: "data-url",
             title: "Upload .txt files",
+            default: null,
             "x-index": 17
         },
         txtFolderPath: {
             type: "string",
             title: "Path to folder with .txt files",
             description: "Has priority over all",
-            default: "Hello!!",
+            default: "",
             "x-index": 18
         },
         parameter128: {
             type: "string",
             title: "parameter_128",
-            default: "Hello!!",
+            default: "",
             "x-index": 19
         },
         subtitleFile: {
             type: "string",
             format: "data-url",
             title: "Upload srt or ass files",
+            default: null,
             "x-index": 20
         },
         subtitleFolderPath: {
             type: "string",
             title: "Path to folder with srt or ass",
             description: "Has priority over all",
-            default: "Hello!!",
+            default: "",
             "x-index": 21
         },
         syncSubtitles: {
             type: "boolean",
             title: "Synchronise subtitle timings",
-            default: true,
+            default: false,
             "x-index": 22
         },
         enableLanguageAutoDetect: {
             type: "boolean",
             title: "Enable language auto detect",
-            default: true,
+            default: false,
             "x-index": 23
         },
         enableWaveform: {
             type: "boolean",
             title: "Enable Waveform",
-            default: true,
+            default: false,
             "x-index": 24
         },
         improveQuality: {
             type: "boolean",
             title: "Improve output quality",
-            default: true,
+            default: false,
             "x-index": 25
         },
         resembleEnhancement: {
             type: "boolean",
             title: "Resemble enhancement",
-            default: true,
+            default: false,
             "x-index": 26
         },
         voiceImprovement: {
             type: "string",
             title: "Use RVC or OpenVoice to improve result",
-            enum: ["RVC"],
-            default: "RVC",
+            enum: ["None", "RVC"],
+            default: "None",
             "x-index": 27
         },
         outputType: {
@@ -215,32 +218,32 @@ export const schema: RJSFSchema = {
         inputText: {
             type: "string",
             title: "Input Text",
-            default: "Hello!!",
+            default: "",
             "x-index": 29
         },
         language: {
             type: "string",
             title: "Language",
-            enum: ["Arabic"],
-            default: "Arabic",
+            enum: ["English"],
+            default: "English",
             "x-index": 30
         },
         referenceSpeakerName: {
             type: "string",
             title: "Reference Speaker Name",
-            default: "Hello!!",
+            default: "",
             "x-index": 31
         },
         referenceSpeakerPath: {
             type: "string",
             title: "Reference Speaker Path",
-            default: "Hello!!",
+            default: "",
             "x-index": 32
         },
         fileName: {
             type: "string",
             title: "File Name Value",
-            default: "Hello!!",
+            default: "output",
             "x-index": 33
         },
         voiceEngine: {
@@ -255,7 +258,7 @@ export const schema: RJSFSchema = {
             title: "Temperature",
             minimum: 0.01,
             maximum: 1,
-            default: 0.01,
+            default: 0.75,
             "x-index": 35
         },
         lengthPenalty: {
@@ -263,7 +266,7 @@ export const schema: RJSFSchema = {
             title: "Length Penalty",
             minimum: -10.0,
             maximum: 10.0,
-            default: -10,
+            default: 1,
             "x-index": 36
         },
         repetitionPenalty: {
@@ -271,7 +274,7 @@ export const schema: RJSFSchema = {
             title: "Repetition Penalty",
             minimum: 1,
             maximum: 10,
-            default: 1,
+            default: 5,
             "x-index": 37
         },
         topK: {
@@ -279,7 +282,7 @@ export const schema: RJSFSchema = {
             title: "Top K",
             minimum: 1,
             maximum: 100,
-            default: 1,
+            default: 50,
             "x-index": 38
         },
         topP: {
@@ -287,7 +290,7 @@ export const schema: RJSFSchema = {
             title: "Top P",
             minimum: 0.01,
             maximum: 1,
-            default: 0.01,
+            default: 0.85,
             "x-index": 39
         },
         speed: {
@@ -295,7 +298,7 @@ export const schema: RJSFSchema = {
             title: "Speed",
             minimum: 0.1,
             maximum: 2,
-            default: 0.1,
+            default: 1,
             "x-index": 40
         },
         enableTextSplitting: {
@@ -307,6 +310,10 @@ export const schema: RJSFSchema = {
         statusBar: {
             type: "object",
             title: "Status bar",
+            default: {
+                "label": "Done",
+                "confidences": null
+            },
             "x-index": 42
         }
     }

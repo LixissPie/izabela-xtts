@@ -56,6 +56,11 @@ export default function ServerForm() {
 
     return (
         <Form
+            uiSchema={{
+                "ui:submitButtonOptions": {
+                    "norender": true,
+                },
+            }}
             schema={ schema }
             validator={ validator }
             formData={ formData }
