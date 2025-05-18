@@ -1,22 +1,39 @@
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import electron from 'vite-plugin-electron/simple'
+import { defineConfig } from "vite";
+import viteReact from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
-// https://vite.dev/config/
+import { resolve } from "node:path";
+
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-      vue(),
+      viteReact(),
+    tailwindcss(),
     electron({
       main: {
-        // Shortcut of `build.lib.entry`
         entry: 'electron/main.ts',
+        vite: {
+          build: {
+            commonjsOptions: {
+              transformMixedEsModules: true
+            }
+          }
+        }
       },
       preload: {
-        // Shortcut of `build.rollupOptions.input`
         input: 'electron/preload.ts',
       },
-      // Optional: Use Node.js API in the Renderer process
       // renderer: {},
     }),
   ],
-})
+  test: {
+    globals: true,
+    environment: "jsdom",
+  },
+  resolve: {
+    alias: {
+      '@': resolve(__dirname, './src'),
+    },
+  }
+});
