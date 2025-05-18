@@ -6,16 +6,16 @@
   "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build && electron-builder",
+    "build": "vite build && electron-builder",
     "preview": "vite preview",
     "test": "vitest run",
     "format": "biome format",
     "lint": "biome lint",
     "check": "biome check",
-    "electron:build": "vue-tsc -b && vite build && electron-builder",
-    "electron:build:win": "vue-tsc -b && vite build && electron-builder --win",
-    "electron:build:mac": "vue-tsc -b && vite build && electron-builder --mac",
-    "electron:build:linux": "vue-tsc -b && vite build && electron-builder --linux"
+    "electron:build": "vite build && electron-builder",
+    "electron:build:win": "vite build && electron-builder --win",
+    "electron:build:mac": "vite build && electron-builder --mac",
+    "electron:build:linux": "vite build && electron-builder --linux"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
