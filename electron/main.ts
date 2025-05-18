@@ -19,6 +19,23 @@ declare global {
 
 app.isQuitting = false;
 
+// Ensure only one instance of the app can run at a time
+const gotTheLock = app.requestSingleInstanceLock();
+
+if (!gotTheLock) {
+    console.log('Another instance is already running. Quitting...');
+    app.quit();
+} else {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // Someone tried to run a second instance, we should focus our window.
+        if (mainWindow) {
+            if (mainWindow.isMinimized()) mainWindow.restore();
+            mainWindow.show();
+            mainWindow.focus();
+        }
+    });
+}
+
 // Keep a global reference of objects to prevent garbage collection
 let tray: Tray | null = null
 let mainWindow: BrowserWindow | null = null
